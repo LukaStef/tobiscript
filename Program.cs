@@ -2,15 +2,18 @@
 using System.Data;
 using System.Diagnostics;
 
+//napravljeno: 03.03.2023.
+//poslednja izmena: 24.05.2023.
+
 //inicijalizacija
 
-const string verzija = "1.5.0";
+const string verzija = "1.5.1";
 Console.Title = "TobiScript v" + verzija;
 Console.ForegroundColor = ConsoleColor.Green;
 string unos;
 string putanja = "C:/";
 //DateTime danasnjiDan = DateTime.Now;
-Console.WriteLine("TobiScript v" + verzija + "\nAutor: Luka Stefanovic\n" + DateTime.Now.ToString("dd.MM.yyyy.") + "\nUnesite 'help' za listu svih komandi\n" + "https://www.lukastefanovic.com\n\n");
+Console.WriteLine("TobiScript v" + verzija + "\nAutor: Luka Stefanovic\n" + DateTime.Now.ToString("dd.MM.yyyy.") + "\nUnesite 'help' za listu svih komandi\n" + "https://www.lukastefanovic.com\n" + "https://github.com/LukaStef/tobiscript\n\n");
 
 //program
 
@@ -42,12 +45,12 @@ while (true) //glavni
 }
 void IzvrsiKomandu(string komanda,string argumenti) //parsiranje argumenata i prepoznavanje komande
 {
-    string povratnaVrednost = "";
+    string povratnaVrednost = "", arg;
     string[] podela = argumenti.Split(';');
     ArrayList listaArg = new();
     foreach (string a in podela)
     {
-        string arg = Parsiranje(a);
+        arg = Parsiranje(a);
         povratnaVrednost += arg;
         listaArg.Add(arg);
     }
@@ -222,7 +225,7 @@ void IzvrsiKomandu(string komanda,string argumenti) //parsiranje argumenata i pr
 }
 string Parsiranje(string argument)
 {
-    string povratnaVrednost="";
+    string povratnaVrednost;
     try
     {
         DataTable t = new();
