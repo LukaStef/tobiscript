@@ -13,7 +13,7 @@ Console.ForegroundColor = ConsoleColor.Green;
 string unos;
 string putanja = "C:/";
 //DateTime danasnjiDan = DateTime.Now;
-Console.WriteLine("TobiScript v" + verzija + "\nAutor: Luka Stefanovic\n" + DateTime.Now.ToString("dd.MM.yyyy.") + "\nUnesite 'help' za listu svih komandi\n" + "https://www.lukastefanovic.com\n" + "https://github.com/LukaStef/tobiscript\n\n");
+PrikaziPoruku();
 
 //program
 
@@ -82,7 +82,7 @@ void IzvrsiKomandu(string komanda,string argumenti) //parsiranje argumenata i pr
         case "wrtxt": //skroz menja sadrzaj za .txt
             if (listaArg.Count < 2)
             {
-                Console.WriteLine("komanda \"" + unos + "\" mora da ima 2 ili vise argumenta");
+                Console.WriteLine($"komanda \"{komanda}\" mora da ima 2 ili vise argumenta");
                 Console.Write("\a");
                 return;
             }
@@ -99,7 +99,7 @@ void IzvrsiKomandu(string komanda,string argumenti) //parsiranje argumenata i pr
             string mesto = putanja + listaArg[0].ToString();
             if (listaArg.Count < 2)
             {
-                Console.WriteLine("komanda \"" + unos + "\" mora da ima 2 ili vise argumenta");
+                Console.WriteLine($"komanda \"{komanda}\" mora da ima 2 ili vise argumenta");
                 Console.Write("\a");
                 return;
             }
@@ -203,13 +203,20 @@ void IzvrsiKomandu(string komanda,string argumenti) //parsiranje argumenata i pr
             break;
         //--ostalo--
         case "site":
-            var url = povratnaVrednost;
-            var psi = new ProcessStartInfo
+            try
             {
-                UseShellExecute = true,
-                FileName = url
-            };
-            Process.Start(psi);
+                var url = povratnaVrednost;
+                var psi = new ProcessStartInfo
+                {
+                    UseShellExecute = true,
+                    FileName = url
+                };
+                Process.Start(psi);
+            }
+            catch
+            {
+                Console.WriteLine("Putanja ne postoji");   
+            }
             break;
         case "bgclr":
             BgColor(povratnaVrednost);
@@ -218,7 +225,7 @@ void IzvrsiKomandu(string komanda,string argumenti) //parsiranje argumenata i pr
             FgColor(povratnaVrednost);
             break;
         default:
-            Console.WriteLine("Komanda " + komanda + " ne postoji");
+            Console.WriteLine($"Komanda \"{komanda}\" ne postoji");
             Console.Write("\a");
             break;
     }
@@ -285,14 +292,14 @@ void IzvrsiKomanduBezArg(string komanda)
             break;
         case "clear":
             Console.Clear();
-            Console.WriteLine("TobiScript v" + verzija + "\nAutor: Luka Stefanovic\n" + DateTime.Now.ToString("dd.MM.yyyy.") + "\nUnesite 'help' za listu svih komandi\n" + "lukastefanovic.com\n\n");
+            PrikaziPoruku();
             break;
         case "clearclr":
             Console.ForegroundColor = ConsoleColor.Green;
             Console.BackgroundColor = ConsoleColor.Black;
             break;
         default:
-            Console.WriteLine("Komanda " + komanda + " ne postoji");
+            Console.WriteLine($"Komanda \"{komanda}\" ne postoji");
             Console.Write("\a");
             break;
     }
@@ -306,7 +313,7 @@ void BgColor(string index)
         {
             Console.BackgroundColor = colors[i];
             Console.Clear();
-            Console.WriteLine("TobiScript v" + verzija + "\nAutor: Luka Stefanovic\n" + DateTime.Now.ToString("dd.MM.yyyy.") + "\nUnesite 'help' za listu svih komandi\n" + "https://www.lukastefanovic.com\n\n");
+            PrikaziPoruku();
         }
     }
 }
@@ -319,7 +326,11 @@ void FgColor(string index)
         {
             Console.ForegroundColor = colors[i];
             Console.Clear();
-            Console.WriteLine("TobiScript v" + verzija + "\nAutor: Luka Stefanovic\n" + DateTime.Now.ToString("dd.MM.yyyy.") + "\nUnesite 'help' za listu svih komandi\n" + "https://www.lukastefanovic.com\n\n");
+            PrikaziPoruku();
         }
     }
+}
+void PrikaziPoruku()
+{
+    Console.WriteLine($"TobiScript v{verzija}\nAutor: Luka Stefanovic\n{DateTime.Now.ToString("dd.MM.yyyy.")}\nUnesite 'help' za listu svih komandi\n" + "https://www.lukastefanovic.com\n" + "https://github.com/LukaStef/tobiscript\n\n");
 }
